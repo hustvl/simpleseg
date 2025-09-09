@@ -1,0 +1,31 @@
+MODEL:
+  NAME: "ResPSPNet"
+  RESNET:
+    # PSPNet adopts dilation (2, 4) in the last 2 stages
+    DILATIONS: (2, 4)
+    STRIDES: (1, 1)
+DATASET:
+  NAME: "ade20k"
+  PATH: "/cluster_home/custom_data/ade/ADEChallengeData2016/"
+  # PATH: "data/ade/ADEChallengeData2016/"
+  TRAIN: ("training",)
+  TEST: "validation"
+  NUM_CLASSES: 150
+  TRANSFORMS:
+    CROP_SIZE: (512, 512)
+    BLUR: "gblur"
+    CROP_CATE_RATIO: 0.75
+LOSS:
+  AUX_WEIGHT: 0.4
+SOLVER:
+  ITERATION_BASED: True
+  BATCH_SIZE: 16
+  BASE_LR: 0.01
+  MAX_ITERS: 160000
+  CHECKPOINT_PERIOD: 2000
+  TEST_PERIOD: 2000
+TEST:
+  INPUT_MODE: "resize"
+  SIZE: (512, 2048)
+  BATCH_SIZE: 8
+OUTPUT_DIR: "output/pspnet_r18_ade20k_160k_cat75"

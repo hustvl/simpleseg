@@ -1,0 +1,32 @@
+MODEL:
+  NAME: "ResSFNet"
+  RESNET:
+    # SFNet adopts dilation (2, 4) in the last 2 stages
+    # see: https://github.com/lxtGH/SFSegNets/blob/ce97d2e7dfd7cf3f3d2af7b0c31e23e51df6b182/network/sfnet_resnet.py#L202
+    DILATIONS: (1, 1)
+    STRIDES: (-1, -1)
+DATASET:
+  NAME: "ade20k"
+  PATH: "/cluster_home/custom_data/ade/ADEChallengeData2016/"
+  # PATH: "data/ade/ADEChallengeData2016/"
+  TRAIN: ("training",)
+  TEST: "validation"
+  NUM_CLASSES: 150
+  TRANSFORMS:
+    CROP_SIZE: (512, 512)
+    BLUR: "gblur"
+    CROP_CATE_RATIO: 0.75
+LOSS:
+  AUX_WEIGHT: 1.0
+SOLVER:
+  ITERATION_BASED: True
+  BATCH_SIZE: 16
+  BASE_LR: 0.01
+  MAX_ITERS: 160000
+  CHECKPOINT_PERIOD: 2000
+  TEST_PERIOD: 2000
+TEST:
+  INPUT_MODE: "resize"
+  SIZE: (512, 2048)
+  BATCH_SIZE: 8
+OUTPUT_DIR: "output/sfnet_r18_wodilate_ade20k_160k_cat75"

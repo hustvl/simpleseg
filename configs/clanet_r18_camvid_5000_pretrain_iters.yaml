@@ -1,0 +1,27 @@
+MODEL:
+  NAME: "ResCLANet"
+  RESNET:
+    DILATIONS: (1, 1)
+    STRIDES: (-1, -1)
+  WEIGHTS: "pretrained_models/simpleseg_r18_clanet_pretrain_city.pth"
+DATASET:
+  NAME: "camvid"
+  PATH: "data/CamVid/"
+  TRAIN: ("train", "val")
+  TEST: "test"
+  NUM_CLASSES: 11
+  TRANSFORMS:
+    CROP_SIZE: (720, 960)
+    BLUR: "gblur"
+LOSS:
+  AUX_WEIGHT: 1.0
+SOLVER:
+  ITERATION_BASED: True
+  BATCH_SIZE: 16
+  BASE_LR: 0.01
+  MAX_ITERS: 5000
+  CHECKPOINT_PERIOD: 1000
+  TEST_PERIOD: 100
+TEST:
+  BATCH_SIZE: 8
+OUTPUT_DIR: "output/clanet_r18_camvid_pretrain_5000iters"

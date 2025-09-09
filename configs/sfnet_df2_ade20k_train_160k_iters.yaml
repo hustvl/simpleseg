@@ -1,0 +1,28 @@
+MODEL:
+  NAME: "DFSFNet"
+  PRETRAINED: "pretrained_models/df2_imagenet.pth"
+DATASET:
+  NAME: "ade20k"
+  PATH: "/cluster_home/custom_data/ade/ADEChallengeData2016/"
+  # PATH: "data/ade/ADEChallengeData2016/"
+  TRAIN: ("training",)
+  TEST: "validation"
+  NUM_CLASSES: 150
+  TRANSFORMS:
+    CROP_SIZE: (512, 512)
+    BLUR: "gblur"
+    CROP_CATE_RATIO: 0.75
+LOSS:
+  AUX_WEIGHT: 1.0
+SOLVER:
+  ITERATION_BASED: True
+  BATCH_SIZE: 16
+  BASE_LR: 0.01
+  MAX_ITERS: 160000
+  CHECKPOINT_PERIOD: 2000
+  TEST_PERIOD: 2000
+TEST:
+  INPUT_MODE: "resize"
+  SIZE: (512, 2048)
+  BATCH_SIZE: 8
+OUTPUT_DIR: "output/sfnet_df2_ade20k_160k_cat75"

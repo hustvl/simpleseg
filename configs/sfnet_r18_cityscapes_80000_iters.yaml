@@ -1,0 +1,26 @@
+MODEL:
+  NAME: "ResSFNet"
+  RESNET:
+    DILATIONS: (1, 1)
+    STRIDES: (-1, -1)
+DATASET:
+  NAME: "cityscapes"
+  PATH: "data/cityscapes/"
+  TRAIN: ("train", )
+  TEST: "val"
+  NUM_CLASSES: 19
+  TRANSFORMS:
+    CROP_SIZE: (1024, 1024)
+    BLUR: "gblur"
+LOSS:
+  AUX_WEIGHT: 1.0
+SOLVER:
+  ITERATION_BASED: True
+  BATCH_SIZE: 16
+  BASE_LR: 0.01
+  MAX_ITERS: 80000
+  CHECKPOINT_PERIOD: 10000
+  TEST_PERIOD: 4000
+TEST:
+  BATCH_SIZE: 8
+OUTPUT_DIR: "output/sfnet_r18_cityscapes_80k_iters"
